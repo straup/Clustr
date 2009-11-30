@@ -1,0 +1,51 @@
+# INSTALL INSTRUCTIONS FOR THINGS WITH apt-get
+
+# Make sure you have gcc and g++ installed
+# $> apt-get install g++
+
+# On Ubuntu you will need to add the "multiverse" to your /etc/apt/sources.list
+# file. See also: https://help.ubuntu.com/community/Repositories/CommandLine
+
+$> apt-get install libcgal-dev
+$> apt-get install libgdal1-dev 
+
+# You might as well install gdal-bin while you're here but that's
+# not technically necessary for Clustr.
+# $> apt-get install gdal-bin
+
+# If you haven't already done this part, then grab Clustr from github.
+# $> apt-get install git-core
+# $> git clone git@github.com:straup/Clustr.git 
+
+$> cd Clustr
+
+# IMPORTANT: for systems using gcc 4 you'll need to update the Makefile
+# to include the "-frounding-math" flags to the CFLAGS argument. Like this:
+
+# --- a/Makefile
+# +++ b/Makefile
+# @@ -1,5 +1,5 @@
+# # DEBUG  := -ggdb
+# -CFLAGS := $(shell gdal-config --cflags) $(DEBUG) -O3 -funroll-loops
+# +CFLAGS := $(shell gdal-config --cflags) $(DEBUG) -O3 -funroll-loops -frounding-math
+# LIBS   := $(shell gdal-config --libs) -lCGAL
+# objects = clustr.o component.o shapefile.o polygon.o
+
+$> make
+
+$> ./clustr -h
+
+clustr 0.1 - construct polygons from tagged points
+written by Schuyler Erle <schuyler@nocat.net>
+(c) 2008 Yahoo!, Inc.
+
+Usage: clustr [-a <n>] [-p] [-v] <input> <output>
+   -h, -?      this help message
+   -v          be verbose (default: off)
+   -a <n>      set alpha value (default: use "optimal" value)
+   -p          output points to shapefile, instead of polygons
+
+If <input> is missing or given as "-", stdin is used.
+If <output> is missing, output is written to clustr.shp.
+Input file should be formatted as: <tag> <lon> <lat>\n
+Tags must not contain spaces.
