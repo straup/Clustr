@@ -19,18 +19,6 @@ $> apt-get install libgdal1-dev
 
 $> cd Clustr
 
-# IMPORTANT: for systems using gcc 4 you'll need to update the Makefile
-# to include the "-frounding-math" flags to the CFLAGS argument. Like this:
-
-# --- a/Makefile
-# +++ b/Makefile
-# @@ -1,5 +1,5 @@
-# # DEBUG  := -ggdb
-# -CFLAGS := $(shell gdal-config --cflags) $(DEBUG) -O3 -funroll-loops
-# +CFLAGS := $(shell gdal-config --cflags) $(DEBUG) -O3 -funroll-loops -frounding-math
-# LIBS   := $(shell gdal-config --libs) -lCGAL
-# objects = clustr.o component.o shapefile.o polygon.o
-
 $> make
 
 $> ./clustr -h
