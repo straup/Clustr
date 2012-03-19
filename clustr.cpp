@@ -219,10 +219,11 @@ int main(int argc, char **argv) {
             previous = tag;
         }
         if (tag != previous) {
-            construct_output(config, *shape, pts, tag);
+            construct_output(config, *shape, pts, previous);
             pts.clear();
+            previous = tag;
         }
-        pts.push_back(pt);
+        pts.push_back(pt);        
     }
     construct_output(config, *shape, pts, tag);
    
