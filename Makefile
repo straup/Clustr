@@ -6,7 +6,7 @@ ifneq ($(shell g++ --version | head -1 | grep ' 4\.'), '')
 CFLAGS := $(CFLAGS) -frounding-math
 endif
 
-LIBS   := $(shell gdal-config --libs) -lCGAL
+LIBS   := $(shell gdal-config --libs) -lCGAL -lgmp
 objects = clustr.o component.o shapefile.o polygon.o
 
 clustr: $(objects)
